@@ -56,7 +56,63 @@ function processData(data,data2){
     location.min=time.min;
     location.year=time.year;
     location.dayNum=time.day;
+    processWeekData(data2.daily,d2.getDay()+1);
     return location;
+}
+
+function processWeekData(data,day){
+    let forecast=document.querySelector(".forecast");
+    forecast.replaceChildren();
+    for(let i=1;i<8;i++){
+        let infos={};
+        infos.i=i;
+        let iconId= data[i].weather[0].icon;
+        infos.iconUrl=`https://openweathermap.org/img/wn/${iconId}@2x.png`;
+        infos.desc=data[i].weather[0].description;
+        infos.max=data[i].temp.max;
+        infos.min=data[i].temp.min;
+        infos.day=day;
+        displayDayOfWeek(infos);
+        day=nextDay(day);
+    }
+}
+
+
+function displayDayOfWeek(information){
+    let container=document.querySelector('.forecast');
+    let day=document.createElement("div");
+    day.className=`dayInfo day${information.i}`;
+    container.append(day);
+    let dayName=document.createElement("div");
+    dayName.className="dayName";
+    dayName.textContent=convertToDayTextFull(information.day);
+    let weatherContainer=document.createElement("div");
+    weatherContainer.className="weatherIcon";
+    let img=new Image();
+    img.src=information.iconUrl;
+    weatherContainer.append(img);
+
+    let desc=document.createElement("div");
+    desc.textContent=information.desc;
+    desc.className="desc";
+    
+    let temps=document.createElement("div");
+    temps.classList.add("temps");
+    
+    let max=document.createElement("span");
+    max.id="max";
+    max.textContent=information.max+"°C ";
+    let sep=document.createElement("span");
+    sep.textContent="| ";
+    let min=document.createElement("span");
+    min.id="min";
+    min.textContent=information.min+"°C";
+    
+    temps.append(max,sep,min);
+
+
+    day.append(dayName,weatherContainer,desc,temps);
+
 }
 
 function parseInformation(information) {
@@ -118,6 +174,13 @@ function exatractTime(string){
     return dat;
 }
 
+function nextDay(num){
+    if(num<6){
+        return num+1;
+    }
+    else return 0;
+}
+
 
 function convertToDayText(num){
     switch(num) {
@@ -128,6 +191,18 @@ function convertToDayText(num){
         case 4: return 'Thu';
         case 5: return 'Fri';
         case 6: return 'Sat';
+    }
+}
+
+function convertToDayTextFull(num){
+    switch(num) {
+        case 0: return 'Sunday';
+        case 1: return 'Monday';
+        case 2: return 'Tuesday';
+        case 3: return 'Wednesday';
+        case 4: return 'Thursday';
+        case 5: return 'Friday';
+        case 6: return 'Saturday';
     }
 }
 

@@ -8,8 +8,7 @@ html,body {
 body {
     display: flex;
     flex-direction: column;
-    gap: 100px;
-    background-image: linear-gradient(to left,rgb(205, 52, 52),rgb(122, 44, 44));
+    background-image: linear-gradient(to left,rgb(200, 60, 60),rgb(171, 34, 34));
     padding: 32px;
     color: rgb(255, 255, 255);
 }
@@ -63,6 +62,7 @@ input {
 .current-weather {
     display: flex;
     align-items: center;
+    margin-top: 60px;
 }
 
 .name {
@@ -157,3 +157,45 @@ input:-webkit-autofill:active {
 .info > img {
     width: 35px;
 }
+
+.forecast {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.dayInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(79, 77, 77, 0.285);
+    backdrop-filter: blur(5px);
+    padding: 16px;
+    border-radius: 32px;
+}
+
+.dayName {
+    font-size: 20px;
+}
+
+.dayInfo > .desc {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.weatherIcon {
+    /* background-color: rgba(210, 207, 207, 0.1);
+    backdrop-filter: blur(1px);
+    border-radius: 32px; */
+    margin: 8px 0px;
+}
+ 
+#max {
+    color: rgb(255, 70, 70);
+}
+
+#min {
+    color: rgb(0, 247, 255);
+}
+
